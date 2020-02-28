@@ -4,10 +4,12 @@
         "tslint:recommended"
     ],
     "jsRules": {
+        "no-console": false,
         "no-trailing-whitespace": false,
         "whitespace": [true, "check-branch", "check-operator", "check-typecast"]
     },
     "rules": {
+        "no-console": false,
         "no-trailing-whitespace": false,
         "whitespace": [false, "check-branch", "check-operator", "check-typecast"]
     },
