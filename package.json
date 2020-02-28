@@ -31,8 +31,8 @@
     }
   },
   "lint-staged": {
-    "*.ts": "yarn lint:ts",
-    "*.tsx": "yarn lint:ts"
+    "src/*.ts": "yarn lint:ts",
+    "src/*.tsx": "yarn lint:ts"
   },
   "eslintConfig": {
     "extends": "react-app"
