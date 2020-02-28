@@ -3,7 +3,13 @@
     "extends": [
         "tslint:recommended"
     ],
-    "jsRules": {},
-    "rules": {},
+    "jsRules": {
+        "no-trailing-whitespace": false,
+        "whitespace": [true, "check-branch", "check-operator", "check-typecast"]
+    },
+    "rules": {
+        "no-trailing-whitespace": false,
+        "whitespace": [false, "check-branch", "check-operator", "check-typecast"]
+    },
     "rulesDirectory": []
 }
