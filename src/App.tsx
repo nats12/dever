@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Moment from 'moment';
 import './App.css';
-import { Framework } from './Framework';
+import { Frameworks } from './Frameworks/Frameworks';
 
 const reactAPIURL = `http://localhost:8000/api/frameworks/`;
-const bearerToken = `eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9URTJOemRDT1RVNE9FTkJSRE5CT1RSRE9FWTVOVGREUTBKRk1EZ3pRMFE0T1RjNE9UUkRNUSJ9.eyJpc3MiOiJodHRwczovL2Rldi0yaGI3YW5qbC5ldS5hdXRoMC5jb20vIiwic3ViIjoiRzBQQ3RlRmFiOE40TzM1THVDVG9CbXFUOGU2MEFJVDlAY2xpZW50cyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC8iLCJpYXQiOjE1ODQxMzg3MzcsImV4cCI6MTU4NDIyNTEzNywiYXpwIjoiRzBQQ3RlRmFiOE40TzM1THVDVG9CbXFUOGU2MEFJVDkiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.O7dVbEYHDvT2rW8bW34kZg_b3rt2F1VbhEjIutBxXTfQYoWnA63witVY68rUgE0zjX2dDOo4GfcAsBCujGSNUi3m9xNBTwqAvB9bdRLwpWn1GZMbHYmkHQzZ0orS_J4Hjq2CqC_Z4lzgNKkA5jq0WOgG-F89T1nDCOhnCOaEkXHmLi0IC9Eo5CGOPzwQQ4diwPkmvcCSziKUn8fvPyyLFJrxejUtkF9vnXJgNOVNje6OzPTWwB6IU0RW5VfccN29D06Hu5v9y37DaV8Q7Izq4cmmxSXXSNcSdhqF_Lu2llGEPoKn-6bOeUBViscBGQNTbR1TzmUJUvDQepfljwUhiQ`;
+const bearerToken = `eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik9URTJOemRDT1RVNE9FTkJSRE5CT1RSRE9FWTVOVGREUTBKRk1EZ3pRMFE0T1RjNE9UUkRNUSJ9.eyJpc3MiOiJodHRwczovL2Rldi0yaGI3YW5qbC5ldS5hdXRoMC5jb20vIiwic3ViIjoiRzBQQ3RlRmFiOE40TzM1THVDVG9CbXFUOGU2MEFJVDlAY2xpZW50cyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC8iLCJpYXQiOjE1ODQ3Mjc0ODQsImV4cCI6MTU4NDgxMzg4NCwiYXpwIjoiRzBQQ3RlRmFiOE40TzM1THVDVG9CbXFUOGU2MEFJVDkiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.GncWa5a8yfLGiup0nBDVREQy-1JlWJgymmH-28vbdsxD08u-oLKRU9X3YVCRKWEmyYQiAwmtEV3Z3roGEHzvUL1m2-uc11iAPjYPQLc53HY38SB60fFmoPPbtmylLcxaLZrGvOafkvNxeOBbdWL3bx3L3CvZ0pa_YYbVV0syyigfnIhJMrlA0WPIxSI0iP1t2uI0mueZjG2IwwzqjxZ7G9cnKcLFPfh6vdJhGpv-SNAjuerbHPi5iyeAuaX1aZTviHJD11Jik-64qdcmvjGTp3L3Rl8YlsosHwc_v3p1-BiaSSexKiCjwFKRWJnQ5riwtSlPnBCp0c9tgQocTAamtA`;
 // const githubToken = `35e199fe5618e8a6c21727a4304d0a482cc4db4f `;
 
 interface IPreviousState {
@@ -17,36 +16,45 @@ interface IProps {
 }
 
 interface IState {
-  latestVersions?: any
+  latestFrameworks?: any
 }
-
-const tenDaysAgo = new Date();
-tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
 
 let previousState: IPreviousState;
 
 
+/**
+ *
+ *
+ * @export
+ * @class App
+ * @extends {Component<IProps, IState>}
+ */
 export class App extends Component<IProps, IState> {
+
+  /**
+   * Creates an instance of App.
+   * @param {{}} props
+   * @memberof App
+   */
   constructor(props: {}) {
     super(props);
 
     this.state = {
-      latestVersions: { 'react': []}
+      latestFrameworks: [ { 'react': [] } ]
     };
-    
   }
 
- /**
-  *
-  *
-  * @memberof App
-  */
- componentDidMount = () => {
 
+/**
+ *
+ *
+ */
+componentDidMount = () => {
+  
     const reactURL = `https://api.github.com/repos/facebook/react/tags`;
     // const laravelURL = `https://api.github.com/repos/laravel/laravel/tags`;
   
-    const requestOne = axios.get(reactURL, { auth: { username: "nats12", password: "Sovaquera369"}});
+    const requestOne = axios.get(reactURL, { auth: { username: "nats12", password: ""}});
     // const requestTwo = axios.get(laravelURL, { headers: { "Authorization": "token " + githubToken }});
     // const requestThree = axios.get(reactAPIURL);
 
@@ -58,11 +66,11 @@ export class App extends Component<IProps, IState> {
      
         // Set to state
         this.setState({
-          latestVersions: { 'react': reactDatabaseVersion[0] }
+          latestFrameworks: [ { 'react': reactDatabaseVersion[0] } ]
         })
 
         // Set global 'previousState' to this state
-        previousState = this.state.latestVersions; 
+        previousState = this.state.latestFrameworks; 
         
         // Now fetch all releases from Github.
         axios.all([requestOne])
@@ -86,12 +94,14 @@ export class App extends Component<IProps, IState> {
             delete reactLatestRelease.name;
 
             // Update only if the new release version is greater than the current one i.e. DB.
-        
-            if(reactLatestRelease.version > this.state.latestVersions.react.version) {
+          
+            if(reactLatestRelease.version > this.state.latestFrameworks[0].react.version) {
               
               this.setState((prevState, props) => ({
-                latestVersions:  { 'react': reactLatestRelease } 
+                latestFrameworks: [ { 'react': reactLatestRelease }]
               }))
+
+              
             } 
           })).catch((error: any) => { console.log(error); });
     }).catch((error) => { console.log(error); });
@@ -101,12 +111,13 @@ export class App extends Component<IProps, IState> {
  /**
   *
   *
-  * @memberof App
+  * @param {IProps} prevProps
+  * @param {IState} prevState
   */
  componentDidUpdate = (prevProps: IProps, prevState: IState) => {
 
-    if(prevState.latestVersions.react.version < this.state.latestVersions.react.version) { 
-      this.updateReactTable('react', this.state.latestVersions.react.version);
+    if(prevState.latestFrameworks[0].react.version < this.state.latestFrameworks[0].react.version) { 
+      this.updateReactTable('react', this.state.latestFrameworks[0].react.version);
     } 
   }
 
@@ -114,7 +125,8 @@ export class App extends Component<IProps, IState> {
   /**
    *
    *
-   * @memberof App
+   * @param {string} framework
+   * @param {string} version
    */
   updateReactTable = (framework: string, version: string) => {
 
@@ -140,14 +152,15 @@ export class App extends Component<IProps, IState> {
   }
 
 
-
   /**
    *
    *
-   * @memberof App
+   * @param {*} a
+   * @param {*} b
+   * @returns
    */
   compareVersionDesc = (a: any, b: any) => {
-
+    
     const as = a.name.split('.').map(Number)
     const bs = b.name.split('.').map(Number)
 
@@ -155,31 +168,31 @@ export class App extends Component<IProps, IState> {
         || (bs[1]||0) - (as[1]||0)
         || (bs[2]||0) - (as[2]||0)
   }
-  
+ 
   /**
    *
    *
-   * @memberof App
+   * @param {*} versions
+   * @returns
    */
   findLatestVersion = (versions: any) => { 
+      
     return [...versions].sort(this.compareVersionDesc)[0][0]
   }
   
 
   render () {
 
-    console.log(previousState);
     return (
       <div className="App">
         <header className="App-header">
           <p>
             Edit <code>src/App.tsx</code> and save to reload.
           </p>
-          {   
-            (Moment(this.state.latestVersions.react.updated_at).isAfter(Moment(tenDaysAgo)) ? <Framework name="React" release={this.state.latestVersions.react} /> : ' ')
-          }
+          <div>
+            <Frameworks latestFrameworks={this.state.latestFrameworks} />
+          </div>
         </header>
-        
       </div>
     );
   }
