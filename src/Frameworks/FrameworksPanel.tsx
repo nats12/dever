@@ -6,7 +6,7 @@ import Moment from 'moment';
 const tenDaysAgo = new Date();
 tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
 
-export class Frameworks extends Component<any, any> {
+export class FrameworksPanel extends Component<any, any> {
 
     /**
      * Creates an instance of Frameworks.
