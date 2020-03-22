@@ -9,7 +9,7 @@ const urls = require('../../config/urls.json');
  * @param {string} framework
  * @returns
  */
-export const Get = (request: Promise<AxiosResponse<any>>) => {
+export const GetAll = (request: Promise<AxiosResponse<any>>) => {
 
     return axios.all([request])
         .then(axios.spread((...responses) => {
