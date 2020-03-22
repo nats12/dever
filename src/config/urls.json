@@ -1,0 +1,11 @@
+{   
+    "data": {
+        "GitHubUrls": {
+            "react": "https://api.github.com/repos/facebook/react/tags",
+            "laravel": "https://api.github.com/repos/laravel/laravel/tags"
+        },
+        "ApiUrls": {
+            "frameworks": "http://localhost:8000/api/frameworks/"
+        }
+    }  
+}
