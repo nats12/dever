@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 import { Update, Get } from '../Services/DatabaseServices/FrameworksService';
-import { GetAll as GetAllGitHub } from '../Services/GitHubServices/GitHubService';
+import { GetReleases } from '../Services/GitHubServices/GitHubService';
 import { FindLatestVersion } from '../Services/VersionComparisons/VersionComparisons';
 
 import Moment from 'moment';
@@ -44,7 +44,7 @@ export function Framework(props: any) {
         previousLatestFrameworks.current = latestFrameworks;
     
         // Now fetch all releases from Github.
-        GetAllGitHub(props.framework).then((responses: any) => {
+        GetReleases(props.framework).then((responses: any) => {
  
             // Find the latest version out of all releases
             const latestRelease = FindLatestVersion(responses.data);
