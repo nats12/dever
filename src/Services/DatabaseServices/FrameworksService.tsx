@@ -13,7 +13,7 @@ export const Get = (framework: string) => {
 
     return axios.get(urls.data.ApiUrls.frameworks)
         .then((response) => {
-
+   
           // Fetch currently saved version from DB
         return response.data.filter((f: any) => f.name === framework);
     
@@ -30,12 +30,12 @@ export const Get = (framework: string) => {
  * @param {string} version
  */
 export const Update = (framework: string, version: string) => {
-
+    
     const data = {
         name: [framework],
         version
     }
-    
+
     const axiosConfig = {
         headers:{
             'Content-Type': 'application/json;charset=UTF-8',
@@ -44,9 +44,10 @@ export const Update = (framework: string, version: string) => {
         }
     }
     
-    axios.put(urls.data.ApiUrls.frameworks, data, axiosConfig)
+    
+    axios.put(`${urls.data.ApiUrls.frameworks}${framework}`, data, axiosConfig)
         .then((response: any) => {
-        console.log(response.status)
+            console.log(response.status)
         })
         .catch((error: any) => console.log(error));
 }

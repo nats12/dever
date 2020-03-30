@@ -2,7 +2,8 @@
     "data": {
         "GitHubUrls": {
             "react": "https://api.github.com/repos/facebook/react/tags",
-            "laravel": "https://api.github.com/repos/laravel/laravel/tags"
+            "laravel": "https://api.github.com/repos/laravel/laravel/tags",
+            "vue": "https://api.github.com/repos/vuejs/vue/tags"
         },
         "ApiUrls": {
             "frameworks": "http://localhost:8000/api/frameworks/"

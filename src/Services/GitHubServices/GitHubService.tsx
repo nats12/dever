@@ -1,17 +1,20 @@
 import axios, { AxiosResponse } from 'axios';
 
+const urls = require('../../config/urls.json');
+const authorisation = require('../../config/authorization.json');
+
 /**
  *
  *
  * @param {string} framework
  * @returns
  */
-export const GetAll = (request: Promise<AxiosResponse<any>>) => {
+export const GetAll = (framework: string) => {
 
-    return axios.all([request])
-        .then(axios.spread((...responses) => {
-      
-        return responses;
-      
-    })).catch((error: any) => { console.log(error); });   
+    return axios.get(urls.data.GitHubUrls[framework], { headers: { "Authorization": "token " + authorisation.data.GitHubAppToken }})
+        .then((response) => {
+
+            return response; 
+
+        }).catch((error: any) => { console.log(error); });   
 }
