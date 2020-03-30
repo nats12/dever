@@ -1,8 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 
-const authorisation = require('../../config/authorization.json');
-const urls = require('../../config/urls.json');
-
 /**
  *
  *

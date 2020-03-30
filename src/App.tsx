@@ -1,7 +1,6 @@
-import React, { Component, useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import './App.css';
-import { FrameworksPanel } from './Frameworks/FrameworksPanel';
+import { FrameworkPanel } from './Frameworks/FrameworkPanel';
 
 
 /**
@@ -10,13 +9,16 @@ import { FrameworksPanel } from './Frameworks/FrameworksPanel';
  * @returns
  */
 function App() {
-
+  const frameworks = ['react', 'laravel'];
   return (
     <div className="App">
       <header className="App-header">
         <div>
           <h4>Frameworks</h4>
-          <FrameworksPanel />
+          {
+            // modify back to just load frameworkpanel
+            <FrameworkPanel />
+          }
         </div>
       </header>
     </div>
