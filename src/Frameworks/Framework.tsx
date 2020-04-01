@@ -60,7 +60,7 @@ export function Framework(props: any) {
             }
         }).then(() => {
             Update(props.framework, latestFrameworks[0][props.framework].version);
-
+            
         }).catch((error: any) => { console.log(error); });   
     },
         [latestFrameworks[0]],
@@ -83,7 +83,7 @@ export function Framework(props: any) {
 
 
     const framework = latestFrameworks[0][props.framework];
-    
+
     return (
         <div> 
             { 
