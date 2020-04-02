@@ -9,7 +9,7 @@ const authorisation = require('../../config/authorization.json');
  * @param {string} framework
  * @returns
  */
-export const GetReleases = (framework: string) => {
+export const GetLatestRelease = (framework: string) => {
 
     return axios.get(urls.data.GitHubUrls[framework], { headers: { "Authorization": "token " + authorisation.data.GitHubAppToken }})
         .then((response) => {
