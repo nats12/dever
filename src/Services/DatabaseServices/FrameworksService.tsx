@@ -47,7 +47,7 @@ export const Update = (framework: string, version: string) => {
     
     axios.put(`${urls.data.ApiUrls.frameworks}${framework}`, data, axiosConfig)
         .then((response: any) => {
-            console.log(response.status)
+            console.log(response)
         })
         .catch((error: any) => console.log(error));
 }

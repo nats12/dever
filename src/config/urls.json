@@ -4,7 +4,8 @@
             "react": "https://api.github.com/repos/facebook/react/tags",
             "laravel": "https://api.github.com/repos/laravel/laravel/tags",
             "vue": "https://api.github.com/repos/vuejs/vue/tags",
-            "angular": "https://api.github.com/repos/angular/angular/tags"
+            "angular": "https://api.github.com/repos/angular/angular/tags",
+            "compose": "https://api.github.com/repos/docker/compose/tags"
         },
         "ApiUrls": {
             "frameworks": "http://localhost:8000/api/frameworks/"

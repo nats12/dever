@@ -3,6 +3,7 @@
         "0": "react",
         "1": "laravel",
         "2": "vue",
-        "3": "angular"
+        "3": "angular",
+        "4": "compose"
     } 
 }

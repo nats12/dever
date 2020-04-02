@@ -14,7 +14,7 @@ const authorisation = require('../config/authorization.json');
 export function Framework(props: any) {
 
 
-    const [latestFrameworks, setLatestFrameworks] = useState<any[]>([{}]);
+    const [latest, setLatest] = useState<any[]>([{}]);
     const previousLatestFrameworks: React.MutableRefObject<any> = useRef();
     const requestOne = axios.get(urls.data.GitHubUrls[props.framework], { headers: { "Authorization": "token " + authorisation.data.GitHubAppToken }});
     
@@ -26,7 +26,7 @@ export function Framework(props: any) {
     useEffect(() => {
         
         Get(props.framework).then(data => {
-            setLatestFrameworks([ { [props.framework]: data[0] }]);
+            setLatest([ { [props.framework]: data[0] }]);
         })
         .catch((error: Error) => { console.log(error); });
     },
@@ -41,29 +41,30 @@ export function Framework(props: any) {
     useEffect(() => {
         
         // Set ref
-        previousLatestFrameworks.current = latestFrameworks;
+        previousLatestFrameworks.current = latest;
     
         // Now fetch all releases from Github.
-        GetReleases(props.framework).then((responses: any) => {
- 
+        GetReleases(props.framework).then((response: any) => {
+            
             // Find the latest version out of all releases
-            const latestRelease = FindLatestVersion(responses.data);
+            const latestRelease = FindLatestVersion(response.data);
  
             latestRelease.updated_at = new Date();
             // Change it's object key name to version to match DB column
             latestRelease.version = latestRelease.name;
             delete latestRelease.name;
-
+        
             // Update only if the new release version is greater than the current one i.e. DB.  
-            if(latestFrameworks[0][props.framework] && latestRelease.version > latestFrameworks[0][props.framework].version) {
-              setLatestFrameworks([ { [props.framework]: latestRelease }]);
+            if(latest[0][props.framework] && latestRelease.version > latest[0][props.framework].version) {
+              setLatest([ { [props.framework]: latestRelease }]);
+            } 
+            console.log(latestRelease);
+            if(previousLatestFrameworks.current[0][props.framework].version < latestRelease.version) {
+                Update(props.framework, latestRelease.version);
             }
-        }).then(() => {
-            Update(props.framework, latestFrameworks[0][props.framework].version);
-            
         }).catch((error: any) => { console.log(error); });   
     },
-        [latestFrameworks[0]],
+        [latest[0]],
     );
     
     
@@ -82,7 +83,7 @@ export function Framework(props: any) {
     } 
 
 
-    const framework = latestFrameworks[0][props.framework];
+    const framework = latest[0][props.framework];
 
     return (
         <div> 
