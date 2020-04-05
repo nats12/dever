@@ -2,10 +2,10 @@
     "data": {
         "GitHubUrls": {
             "react": "https://api.github.com/repos/facebook/react/releases/latest",
-            "laravel": "https://api.github.com/repos/laravel/laravel/tags",
-            "vue": "https://api.github.com/repos/vuejs/vue/tags",
+            "laravel": "https://api.github.com/repos/laravel/laravel/releases/latest",
+            "vue": "https://api.github.com/repos/vuejs/vue/releases/latest",
             "angular": "https://api.github.com/repos/angular/angular/tags",
-            "compose": "https://api.github.com/repos/docker/compose/tags"
+            "compose": "https://api.github.com/repos/docker/compose/releases/latest"
         },
         "ApiUrls": {
             "frameworks": "http://localhost:8000/api/frameworks/"

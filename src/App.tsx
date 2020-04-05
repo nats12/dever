@@ -1,7 +1,22 @@
 import React from 'react';
-import './App.css';
-import { FrameworkPanel } from './Frameworks/FrameworkPanel';
+import styled from "styled-components"
+import theme from './theme/theme'
+import './App.scss';
+import { Panel } from './components/Frameworks/Panel';
+import { ErrorBoundary } from './components/ErrorHandling/ErrorBoundary';
+import { Header } from './components/Header';
+const frameworks = require('./config/frameworks.json');
+const tools = require('./config/tools.json');
 
+const Panels = styled.div`
+
+`;
+
+const PanelsTitle = styled.h1`
+  margin-top: 170px;
+  margin-bottom: 100px;
+  color: ${theme.black};
+`;
 
 /**
  *
@@ -9,18 +24,24 @@ import { FrameworkPanel } from './Frameworks/FrameworkPanel';
  * @returns
  */
 function App() {
-  const frameworks = ['react', 'laravel'];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <div>
-          <h4>Frameworks</h4>
+        <Header />
+        <Panels className="container">
+          <PanelsTitle>What's new, pussycat?</PanelsTitle>
           {
-            // modify back to just load frameworkpanel
-            <FrameworkPanel />
+            <>
+              <ErrorBoundary data="frameworks">
+                <Panel devtool="frameworks" data={frameworks} />
+              </ErrorBoundary>
+     
+              <ErrorBoundary data="tools">
+                <Panel devtool="tools" data={tools} />
+              </ErrorBoundary>
+            </>
           }
-        </div>
-      </header>
+        </Panels>
     </div>
   );
 }

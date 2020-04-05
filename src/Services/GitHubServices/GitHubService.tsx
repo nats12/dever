@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const urls = require('../../config/urls.json');
 const authorisation = require('../../config/authorization.json');
