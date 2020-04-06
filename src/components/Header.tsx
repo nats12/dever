@@ -25,7 +25,7 @@ export const Header = () => (
             <div className="container">
                 <HeaderTextWrap>
                     <div>
-                        <h1>Release Repo</h1>
+                        <h1>Dever</h1>
                         <small>A witty strapline.</small>
                     </div>
                     <Navigation />

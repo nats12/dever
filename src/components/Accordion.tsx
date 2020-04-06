@@ -34,7 +34,7 @@ const Card = styled.div`
 ;`
 
 export const Accordion = (props: any) => (
-        
+    
     <>
         <AccordionContainer className="accordion" id={`accordion${props.devtool.name}`}>
             <Card className="card">
@@ -42,7 +42,8 @@ export const Accordion = (props: any) => (
                 <h2 className="mb-0">
                     <button className="btn" type="button" data-toggle="collapse" data-target={`#collapse${props.devtool.name}`} aria-expanded="true" aria-controls={`collapse${props.devtool.name}`}>
                     <div className="item-data">
-                        <h5>{props.devtool.name} - NEW MAJOR/MINOR/PATCH {props.devtool.version}</h5>
+                    
+                        <h5>{props.devtool.name} - NEW {props.devtool.semVerDefinition} {props.devtool.version}</h5>
                     </div>
                     </button>
                 </h2>

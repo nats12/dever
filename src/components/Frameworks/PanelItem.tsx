@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Update, Get } from '../../Services/DatabaseServices/FrameworksService';
 import { GetLatestRelease } from '../../Services/GitHubServices/GitHubService';
 import { Accordion } from '../Accordion';
+import { isMajorMinorPatch, latestVersion } from '../../Services/VersionComparisons';
 
 import Moment from 'moment';
 
@@ -51,16 +52,19 @@ export function PanelItem(props: any) {
                 'name': props.devtool,
                 'version': response.data.tag_name
             }
-          
+                    
             // Update only if the new release version is greater than the current one i.e. DB.  
             if(latest[0][props.devtool] && latestRelease.version > latest[0][props.devtool].version) {
-    
-              setLatest([ { [props.devtool]: latestRelease }]);
+
+                latestRelease.semVerDefinition = isMajorMinorPatch(previousLatestTool.current[0][props.devtool].version, latestRelease.version);
+
+                setLatest([ { [props.devtool]: latestRelease }]);
             } 
-       
+                       
             if(previousLatestTool.current[0][props.devtool].version < latestRelease.version) {
-                Update(props.devtool, latestRelease.version);
+                Update(props.devtool, latestRelease.version, latestRelease.semVerDefinition);
             }
+
         }).catch((error: any) => { console.log(error); });   
     },
         [latest[0]],
@@ -83,7 +87,8 @@ export function PanelItem(props: any) {
 
 
     const item = latest[0][props.devtool];
-    
+
+
     return (
         <div> 
             { 

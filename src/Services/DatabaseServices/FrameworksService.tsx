@@ -29,11 +29,12 @@ export const Get = (framework: string) => {
  * @param {string} framework
  * @param {string} version
  */
-export const Update = (framework: string, version: string) => {
+export const Update = (framework: string, version: string, semVerDefinition: string) => {
     
     const data = {
         name: [framework],
-        version
+        version,
+        semVerDefinition
     }
 
     const axiosConfig = {
