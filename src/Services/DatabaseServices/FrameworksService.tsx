@@ -6,7 +6,8 @@ const urls = require('../../config/urls.json');
 interface IData {
     name: string,
     version: string,
-    semVerDefinition: string
+    semVerDefinition: string,
+    versionDescription: string
 }
 
 /**
@@ -35,12 +36,13 @@ export const Get = (framework: string) => {
  * @param {string} framework
  * @param {string} version
  */
-export const Update = (framework: string, version: string, semVerDefinition: string) => {
+export const Update = (framework: string, release: any) => {
     
     const data: IData = {
         name: framework,
-        version,
-        semVerDefinition
+        version: release.version,
+        semVerDefinition: release.semVerDefinition,
+        versionDescription: release.versionDescription
     }
 
     const axiosConfig = {

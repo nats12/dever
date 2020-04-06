@@ -2,6 +2,8 @@ import React from 'react';
 import styled from "styled-components"
 import theme from '../theme/theme'
 
+const ReactMarkdown = require('react-markdown')
+
 // interface IDevTool {
 //     name: string
 // }
@@ -51,11 +53,7 @@ export const Accordion = (props: any) => (
 
                 <div id={`collapse${props.devtool.name}`} className="collapse" aria-labelledby={`heading${props.devtool.name}`} data-parent={`#accordion${props.devtool.name}`}>
                 <div className="card-body">
-                    <ul>
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                        <li>Item 3</li>
-                    </ul>
+                    <ReactMarkdown source={props.devtool.versionDescription} />
                 </div>
                 </div>
             </Card>

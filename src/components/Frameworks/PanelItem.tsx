@@ -24,7 +24,8 @@ export function PanelItem(props: IProps) {
         updated_at: Date,
         name: string,
         version: string,
-        semVerDefinition: string
+        semVerDefinition: string,
+        versionDefinition: string
     }
 
 
@@ -57,13 +58,14 @@ export function PanelItem(props: IProps) {
     
         // Now fetch all releases from Github.
         GetLatestRelease(props.devtool).then((response: any) => {
-     
+            
             // Find the latest version out of all releases
             const latestRelease: ILatestRelease = {
                 ...response.data,
                 'updated_at': new Date(),
                 'name': props.devtool,
-                'version': response.data.tag_name
+                'version': response.data.tag_name,
+                'versionDescription': response.data.body
             }
                     
             // Update only if the new release version is greater than the current one i.e. DB.  
@@ -75,7 +77,7 @@ export function PanelItem(props: IProps) {
             } 
                        
             if(previousLatestTool.current[0][props.devtool].version < latestRelease.version) {
-                Update(props.devtool, latestRelease.version, latestRelease.semVerDefinition);
+                Update(props.devtool, latestRelease);
             }
 
         }).catch((error: any) => { console.log(error); });   
