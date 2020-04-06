@@ -5,22 +5,29 @@ import theme from '../theme/theme'
 // interface IDevTool {
 //     name: string
 // }
+const AccordionContainer = styled.div`
+    margin: 20px;
+
+`;
+
 
 const Card = styled.div`
 
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: none !important;
-    
+    overflow: inherit !important;
+    border: 0 !important;
 
     .card-header {
         background: transparent;
-        // border-bottom: none !important;
+        border: 1px solid ${theme.lightGrey} !important;
+        border-bottom: 1px solid ${theme.lightGrey} !important;
     }
 
     .item-data {
         color: ${theme.black};
+    }
+
+    button:focus {
+        box-shadow: none! important;
     }
     
 
@@ -29,7 +36,7 @@ const Card = styled.div`
 export const Accordion = (props: any) => (
         
     <>
-        <div className="accordion" id={`accordion${props.devtool.name}`}>
+        <AccordionContainer className="accordion" id={`accordion${props.devtool.name}`}>
             <Card className="card">
                 <div className="card-header" id={`heading${props.devtool.name}`}>
                 <h2 className="mb-0">
@@ -41,7 +48,7 @@ export const Accordion = (props: any) => (
                 </h2>
                 </div>
 
-                <div id={`collapse${props.devtool.name}`} className="collapse show" aria-labelledby={`heading${props.devtool.name}`} data-parent={`#accordion${props.devtool.name}`}>
+                <div id={`collapse${props.devtool.name}`} className="collapse" aria-labelledby={`heading${props.devtool.name}`} data-parent={`#accordion${props.devtool.name}`}>
                 <div className="card-body">
                     <ul>
                         <li>Item 1</li>
@@ -51,6 +58,6 @@ export const Accordion = (props: any) => (
                 </div>
                 </div>
             </Card>
-        </div>
+        </AccordionContainer>
     </>
 )
