@@ -1,17 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Moment from 'moment';
 
 import { Update, Get } from '../../Services/DatabaseServices/FrameworksService';
 import { GetLatestRelease } from '../../Services/GitHubServices/GitHubService';
 import { Accordion } from '../Accordion';
-import { isMajorMinorPatch, latestVersion } from '../../Services/VersionComparisons';
+import { isMajorMinorPatch } from '../../Services/VersionComparisons';
 
-import Moment from 'moment';
+interface IProps {
+    devtool: string
+}
 
-const urls = require('../../config/urls.json');
-const authorisation = require('../../config/authorization.json');
+/**
+ *
+ *
+ * @export
+ * @param {IProps} props
+ * @returns
+ */
+export function PanelItem(props: IProps) {
 
-
-export function PanelItem(props: any) {
+    interface ILatestRelease {
+        [0]: {},
+        updated_at: Date,
+        name: string,
+        version: string,
+        semVerDefinition: string
+    }
 
 
     const [latest, setLatest] = useState<any[]>([{}]);
@@ -45,8 +59,7 @@ export function PanelItem(props: any) {
         GetLatestRelease(props.devtool).then((response: any) => {
      
             // Find the latest version out of all releases
-            const latestRelease = {
-                
+            const latestRelease: ILatestRelease = {
                 ...response.data,
                 'updated_at': new Date(),
                 'name': props.devtool,

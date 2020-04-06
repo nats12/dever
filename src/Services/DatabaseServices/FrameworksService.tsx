@@ -3,6 +3,12 @@ import axios from 'axios';
 const authorisation = require('../../config/authorization.json');
 const urls = require('../../config/urls.json');
 
+interface IData {
+    name: string,
+    version: string,
+    semVerDefinition: string
+}
+
 /**
  *
  *
@@ -31,8 +37,8 @@ export const Get = (framework: string) => {
  */
 export const Update = (framework: string, version: string, semVerDefinition: string) => {
     
-    const data = {
-        name: [framework],
+    const data: IData = {
+        name: framework,
         version,
         semVerDefinition
     }
