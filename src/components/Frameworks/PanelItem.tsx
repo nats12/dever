@@ -19,8 +19,7 @@ interface IProps {
  */
 export function PanelItem(props: IProps) {
 
-    interface ILatestRelease {
-        [0]: {},
+    type ILatestRelease = {
         updated_at: Date,
         name: string,
         version: string,
@@ -29,8 +28,7 @@ export function PanelItem(props: IProps) {
     }
 
 
-    const [latest, setLatest] = useState<any[]>([{}]);
-    const previousLatestTool: React.MutableRefObject<any> = useRef();
+    const [latest, setLatest] = useState<any>({});
     
     /**
      *
@@ -39,7 +37,10 @@ export function PanelItem(props: IProps) {
     useEffect(() => {
         
         Get(props.devtool).then(data => {
-            setLatest([ { [props.devtool]: data[0] }]);
+            setLatest((prevState: any) => ({
+                prevState: data[0],
+                [props.devtool]: data[0]
+            }));
         })
         .catch((error: Error) => { console.log(error); });
     },
@@ -53,9 +54,6 @@ export function PanelItem(props: IProps) {
      */
     useEffect(() => {
         
-        // Set ref
-        previousLatestTool.current = latest;
-    
         // Now fetch all releases from Github.
         GetLatestRelease(props.devtool).then((response: any) => {
             
@@ -67,22 +65,26 @@ export function PanelItem(props: IProps) {
                 'version': response.data.tag_name,
                 'versionDescription': response.data.body
             }
-                    
+            
+
             // Update only if the new release version is greater than the current one i.e. DB.  
-            if(latest[0][props.devtool] && latestRelease.version > latest[0][props.devtool].version) {
+            if(latest[props.devtool] && latestRelease.version > latest[props.devtool].version) {
 
-                latestRelease.semVerDefinition = isMajorMinorPatch(previousLatestTool.current[0][props.devtool].version, latestRelease.version);
+                latestRelease.semVerDefinition = isMajorMinorPatch(latest.prevState.version, latestRelease.version);
 
-                setLatest([ { [props.devtool]: latestRelease }]);
+                setLatest((prevState: any) => ({
+                    prevState, 
+                    [props.devtool]: latestRelease 
+                }));
             } 
-                       
-            if(previousLatestTool.current[0][props.devtool].version < latestRelease.version) {
+ 
+            if(latest.prevState.version < latestRelease.version) {
                 Update(props.devtool, latestRelease);
             }
-
+            
         }).catch((error: any) => { console.log(error); });   
     },
-        [latest[0]],
+        [latest[props.devtool]],
     );
     
     
@@ -101,16 +103,15 @@ export function PanelItem(props: IProps) {
     } 
 
 
-    const item = latest[0][props.devtool];
-
+    const item = latest[props.devtool];
 
     return (
         <div> 
             { 
                 item 
                 ? (isWithinTenDays(item.updated_at)) 
-                        ?  <Accordion devtool={item} /> : ''
-                : ''
+                        ?  <Accordion devtool={item} prev={latest.prevState} /> : ''
+                : 'Preparing data for you..'
             }   
         </div>
     )

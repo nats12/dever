@@ -36,9 +36,9 @@ function App() {
                 <Panel devtool="frameworks" data={frameworks} />
               </ErrorBoundary>
      
-              {/* <ErrorBoundary data="tools">
+              <ErrorBoundary data="tools">
                 <Panel devtool="tools" data={tools} />
-              </ErrorBoundary> */}
+              </ErrorBoundary>
             </>
           }
         </Panels>
