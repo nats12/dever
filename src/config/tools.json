@@ -1,5 +1,5 @@
 {   
     "data": {
-        "0": "compose"
+        "0": {"name": "compose", "tag": "tools"}
     } 
 }

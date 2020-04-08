@@ -65,7 +65,7 @@ const Card = styled.div`
 export function Accordion(props: any) {
     
     const [accordionCaret, setAccordionCaret] = useState(false);
-    const testing = useRef<any>();
+    const accordionRef = useRef<any>();
    
 
     /**
@@ -74,12 +74,12 @@ export function Accordion(props: any) {
      */
     useEffect(() => {
         
-        if(testing.current.className.includes("show")) {
+        if(accordionRef.current.className.includes("show")) {
             setAccordionCaret(true);
         }
         
     },
-        [testing]
+        [accordionRef]
     )
 
     return (
@@ -105,7 +105,7 @@ export function Accordion(props: any) {
                     </h2>
                     </div>
 
-                    <div ref={testing} id={`collapse${props.devtool.name}`} className="collapse" aria-labelledby={`heading${props.devtool.name}`} data-parent={`#accordion${props.devtool.name}`}>
+                    <div ref={accordionRef} id={`collapse${props.devtool.name}`} className="collapse" aria-labelledby={`heading${props.devtool.name}`} data-parent={`#accordion${props.devtool.name}`}>
                     <div className="card-body">
                         <ReactMarkdown source={props.devtool.versionDescription} />
                     </div>

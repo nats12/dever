@@ -10,13 +10,13 @@ import { PanelItem } from './PanelItem';
  */
 export function Panel (props: any) {
     
-    
+    console.log(props);
     return(
         
         <div className={props.devtool}>
             { 
                 Object.keys(props.data.data).map((index: any) =>
-                     <PanelItem key={`${props.devtool}-${index}`} devtool={props.data.data[index]} /> 
+                     <PanelItem key={`${props.devtool}-${index}`} devtool={props.data.data[index].name} /> 
                 )
             }
         </div>
