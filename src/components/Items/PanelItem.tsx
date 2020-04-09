@@ -8,6 +8,7 @@ import { isMajorMinorPatch } from '../../Services/VersionComparisons';
 
 interface IProps {
     devtool: string
+    data?: {}
 }
 
 /**
@@ -18,6 +19,8 @@ interface IProps {
  * @returns
  */
 export function PanelItem(props: IProps) {
+
+    // console.log(props);
 
     type ILatestRelease = {
         updated_at: Date,

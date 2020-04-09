@@ -4,23 +4,25 @@ import theme from '../theme/theme'
 
 const tags = require('../config/tags.json');
 
-const Tag = (props: any) => (
+const Tag = (props: any) => {
     
-    <>
+    return (
         <button 
             onClick={props.handleClick} 
             id={props.name} 
             type="button" 
-            className={`btn ${props.filterList.indexOf(props.name) !== -1 ? "btn-light" : "btn-primary"}`}>
+            className={`btn ${props.filterTags.indexOf(props.name) !== -1 ? "btn-light" : "btn-primary"}`}>
                 {props.name}
         </button>
-    </>
-)
+  
+    )
+}
 
-export function Filter(props: any) {
+export const Filter = (props: any) => {
     
  
     const FilterContainer = styled.div`
+        width: 100%;
         display: flex;
         justify-content: space-between;
 
@@ -44,7 +46,7 @@ export function Filter(props: any) {
                     tags.data.map((tag: string) => 
                         <Tag 
                             handleClick={props.handleClick} 
-                            filterList={props.filterList}
+                            filterTags={props.filterTags}
                             onChange={props.handler} 
                             name={tag} 
                             key={tag} />)

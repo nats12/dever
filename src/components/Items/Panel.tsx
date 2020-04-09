@@ -10,7 +10,7 @@ import { PanelItem } from './PanelItem';
  */
 export function Panel (props: any) {
     
-    console.log(props);
+    console.log('PROPS', props);
     return(
         
         <div className={props.devtool}>
