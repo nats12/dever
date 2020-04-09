@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { IoIosPricetag } from "react-icons/io";
+
 import styled from "styled-components"
 import theme from '../theme/theme'
 
@@ -39,7 +41,10 @@ export const Filter = (props: any) => {
 
 
     return (
-        <>
+        <div className="FilterSearch">
+            <div className="Tag">
+                <IoIosPricetag/>
+            </div>
             
             <FilterContainer>
                 {
@@ -52,8 +57,6 @@ export const Filter = (props: any) => {
                             key={tag} />)
                 }
             </FilterContainer>
-             
-         
-        </>
+       </div>
     )
 }
