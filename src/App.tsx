@@ -4,8 +4,6 @@ import theme from './theme/theme'
 import './App.scss';
 
 import { Header } from './components/Header';
-
-import { SearchBar } from './components/SearchBar';
 import { Panels } from './components/Items/Panels';
 
 

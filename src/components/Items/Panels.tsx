@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useReducer, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { Panel } from '../../components/Items/Panel';
 import { ErrorBoundary } from '../../components/ErrorHandling/ErrorBoundary';
 import { PanelItem } from './PanelItem';
 import { Filter } from '../../components/Filter';
+import { SearchBar } from '../../components/SearchBar';
 
 const frameworks = require('../../config/frameworks.json');
 const tool = require('../../config/tools.json');
@@ -27,7 +28,7 @@ export function Panels (props: any) {
     );
     
     const [filteredData, setFilteredData] = useState<any>(b);
-   
+    const searchBarRef = useRef<any>();
         // const [searchResults, setSearchResults] = useState<any>({ data: {} });
 
     // const [allData, allDataDispatch] = useReducer(reduce, [...allFrameworks, ...allTools]);
@@ -42,6 +43,8 @@ export function Panels (props: any) {
         const id = event.target.id;
         const index = filterTags.indexOf(id);
         
+
+        
         if(index === -1) {
             setFilterTags((tags: string[]) => [...tags, id]);
             return;
@@ -49,7 +52,19 @@ export function Panels (props: any) {
             setFilterTags(filterTags.filter((tag: string) => { 
                 return tag !== id
             }))
-        } 
+        }
+
+        // if(searchBarRef.current.value != "") {
+        //     const t = allDataState.filter((d: any) => { return filterTags.indexOf(d.tag) !== -1} )
+
+        //     const data = t.reduce(
+        //         (entryMap: any, e: any) => entryMap.set(e.tag, [...entryMap.get(e.tag)||[], e]),
+        //         new Map()    
+        //     )
+    
+        //     setFilteredData(data);
+        // }
+        
     };
 
 
@@ -80,24 +95,37 @@ export function Panels (props: any) {
         [filterTags]
     )
 
+    /**
+     *
+     *
+     * @param {*} event
+     */
+    const handleSearch = (event: any) => {
     
-	// const handleSearch = (event: any) => {
-      
-	// 	const text = event.target.value;
+		const name = event.target.value;
+        
+        
+		// if(text === "") {
+		// 	return;
+		// }
+    
+        const t = allDataState.filter((d: any) => { return d.name.indexOf(name) !== -1 && filterTags.indexOf(d.tag) !== -1} )
+        
+        const data = t.reduce(
+            (entryMap: any, e: any) => entryMap.set(e.tag, [...entryMap.get(e.tag)||[], e]),
+            new Map()    
+        )
 
-	// 	if(text === "") {
-	// 		setSearchResults(undefined);
-	// 		return;
-	// 	}
-	
-	// 	const data = allItems.filter((item: any) => {
-	// 		return item.name.includes(text);
-	// 	});
+        setFilteredData(data);
+        
+		// const data = allItems.filter((item: any) => {
+		// 	return item.name.includes(text);
+		// });
 
-	// 	if((data[0] !== undefined) && (filterTags.indexOf(data[0].tag) !== -1)) {
-	// 		setSearchResults(data) 
-	// 	} 
-  	// };
+		// if((data[0] !== undefined) && (filterTags.indexOf(data[0].tag) !== -1)) {
+		// 	setSearchResults(data) 
+		// } 
+  	};
 
     return(
         
@@ -110,7 +138,7 @@ export function Panels (props: any) {
                             filterTags={filterTags} />
                     </div>
                     <div className="col-lg-6">
-                        {/* <SearchBar onChange={handleSearch} /> */}
+                        <SearchBar onChange={handleSearch} ref={searchBarRef} />
                     </div>
                 </div>
             </div>
