@@ -20,18 +20,15 @@ export function Panels (props: any) {
     const [allDataState, setAllData] = useState<any>([...frameworks.data, ...tool.data]);
     const [filterTags, setFilterTags] = useState<any>(["frameworks"]);
 
-    const c = allDataState.filter((d: any) => filterTags.indexOf(d.tag) !== -1);
+    const checkFilter = allDataState.filter((d: any) => filterTags.indexOf(d.tag) !== -1);
 
-    const b = c.reduce(
+    const groupedData = checkFilter.reduce(
 		(entryMap: any, e: any) => entryMap.set(e.tag, [...entryMap.get(e.tag)||[], e]),
 		new Map()
     );
     
-    const [filteredData, setFilteredData] = useState<any>(b);
+    const [filteredData, setFilteredData] = useState<any>(groupedData);
     const searchBarRef = useRef<any>();
-        // const [searchResults, setSearchResults] = useState<any>({ data: {} });
-
-    // const [allData, allDataDispatch] = useReducer(reduce, [...allFrameworks, ...allTools]);
 
     /**
      *
@@ -39,11 +36,9 @@ export function Panels (props: any) {
      * @param {*} event
      */
     function handleClick(event: any) {
-    
+         
         const id = event.target.id;
         const index = filterTags.indexOf(id);
-        
-
         
         if(index === -1) {
             setFilterTags((tags: string[]) => [...tags, id]);
@@ -54,19 +49,35 @@ export function Panels (props: any) {
             }))
         }
 
-        // if(searchBarRef.current.value != "") {
-        //     const t = allDataState.filter((d: any) => { return filterTags.indexOf(d.tag) !== -1} )
+        // filter all objects for the ones whose tags match active tags in filter tags
+        const t = allDataState.filter((d: any) => { return filterTags.indexOf(d.tag) !== -1} )
+        // filter through the objects in prev step for the one whos name matches the search bar 
+        const c = t.filter((item: any) => { return item.name.indexOf(searchBarRef.current.value) !== -1});
 
-        //     const data = t.reduce(
-        //         (entryMap: any, e: any) => entryMap.set(e.tag, [...entryMap.get(e.tag)||[], e]),
-        //         new Map()    
-        //     )
-    
-        //     setFilteredData(data);
-        // }
-        
+        const b = c.reduce(
+            (entryMap: any, e: any) => entryMap.set(e.tag, [...entryMap.get(e.tag)||[], e]),
+            new Map()
+        );
+
+        setFilteredData(b);
     };
 
+
+    const isInFilterCategory = () => 
+        allDataState.filter((d: any) => { return filterTags.indexOf(d.tag) !== -1} )
+
+    const isInSearchTerm = (items: any) => 
+    items.filter((item: any) => { return item.name.indexOf(searchBarRef.current.value) !== -1});
+
+
+    const isInSearchTermAndInFilterCatgory = (searchTerm: string) => 
+        allDataState.filter((d: any) => { return d.name.indexOf(searchTerm) !== -1 && filterTags.indexOf(d.tag) !== -1} );
+
+
+    const groupByTags = (ungrouped: any) => ungrouped.reduce(
+            (entryMap: any, e: any) => entryMap.set(e.tag, [...entryMap.get(e.tag)||[], e]),
+            new Map()
+        );
 
     /**
      *
@@ -74,14 +85,13 @@ export function Panels (props: any) {
      */
     function updateState() {
         
-        const t = allDataState.filter((d: any) => { return filterTags.indexOf(d.tag) !== -1} )
-    
-        const data = t.reduce(
-            (entryMap: any, e: any) => entryMap.set(e.tag, [...entryMap.get(e.tag)||[], e]),
-            new Map()    
-        )
+        const checkCategory = isInFilterCategory();
+        // filter through the objects in prev step for the one whos name matches the search bar 
+        const checkTerm = isInSearchTerm(checkCategory);
 
-        setFilteredData(data);
+        const groupedFilteredData = groupByTags(checkTerm);
+
+        setFilteredData(groupedFilteredData);
     }
     
     /**
@@ -103,28 +113,26 @@ export function Panels (props: any) {
     const handleSearch = (event: any) => {
     
 		const name = event.target.value;
-        
-        
-		// if(text === "") {
-		// 	return;
-		// }
     
-        const t = allDataState.filter((d: any) => { return d.name.indexOf(name) !== -1 && filterTags.indexOf(d.tag) !== -1} )
         
-        const data = t.reduce(
-            (entryMap: any, e: any) => entryMap.set(e.tag, [...entryMap.get(e.tag)||[], e]),
-            new Map()    
-        )
+		if(name === "") {
+            const checkCategory = isInFilterCategory();
+            // filter through the objects in prev step for the one whos name matches the search bar 
+            const checkTerm = isInSearchTerm(checkCategory);
+
+            const groupedFilteredData = groupByTags(checkTerm);
+            
+
+            setFilteredData(groupedFilteredData);
+			return;
+		}
+    
+        const checkTermAndCategory = isInSearchTermAndInFilterCatgory(name);
+        
+        const data = groupByTags(checkTermAndCategory);
+        
 
         setFilteredData(data);
-        
-		// const data = allItems.filter((item: any) => {
-		// 	return item.name.includes(text);
-		// });
-
-		// if((data[0] !== undefined) && (filterTags.indexOf(data[0].tag) !== -1)) {
-		// 	setSearchResults(data) 
-		// } 
   	};
 
     return(
