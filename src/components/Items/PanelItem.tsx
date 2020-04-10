@@ -20,7 +20,7 @@ interface IProps {
  */
 export function PanelItem(props: IProps) {
 
-    // console.log(props);
+    console.log('almost there', props);
 
     type ILatestRelease = {
         updated_at: Date,

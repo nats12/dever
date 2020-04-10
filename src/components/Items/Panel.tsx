@@ -6,18 +6,20 @@ import { PanelItem } from './PanelItem';
  *
  *
  * @export
+ * @param {*} props
  * @returns
  */
 export function Panel (props: any) {
-    
-    
+
     return(
-        
-        <div className={props.devtool}>
-            { 
-                Object.keys(props.data.data).map((index: any) =>
-                     <PanelItem key={`${props.devtool}-${index}`} devtool={props.data.data[index].name} /> 
-                )
+        <div className={props.description}>
+            {
+                props.data ? 
+                    props.data.map((item: any) => 
+                        <PanelItem key={`${props.devtool}-${item.name}`} devtool={item.name} /> 
+                    )
+                : `Oops there was an error bringing back info on ${props.description}. Check in later.`
+
             }
         </div>
     )
