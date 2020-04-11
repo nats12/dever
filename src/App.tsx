@@ -5,6 +5,8 @@ import './App.scss';
 
 import { Header } from './components/Header';
 import { Panels } from './components/Items/Panels';
+import { Pagination } from './components/Pagination/Pagination';
+import { randomBytes } from 'crypto';
 
 
 
@@ -26,6 +28,26 @@ const PanelsTitle = styled.h1`
   color: ${theme.black};
 `;
 
+
+// const Example = (props: any) => {
+  
+//   // const data = props.data;
+
+//   console.log('example data', props.data);
+
+//   return (
+//     <div className='example'>
+//       {props.data.map((item: any) => 
+       
+//           <div key={item.id} className='example__item'>
+//             {item.id} {item.first_name} {item.last_name}
+//           </div>
+      
+//       )}
+//     </div>
+//   );
+// }
+
 /**
  *
  *
@@ -35,11 +57,11 @@ function App() {
 	
   return (
     <div className="App">
-        <Header />
-        <Main className="container">
-          	<PanelsTitle>What's new, pussycat?</PanelsTitle>
-			<Panels />
-		</Main>
+      <Header />
+      <Main className="container">
+        <PanelsTitle>What's new, pussycat?</PanelsTitle>
+        <Panels />
+		  </Main>
     </div>
   );
 }

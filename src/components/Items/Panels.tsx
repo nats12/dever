@@ -5,10 +5,13 @@ import { ErrorBoundary } from '../../components/ErrorHandling/ErrorBoundary';
 import { PanelItem } from './PanelItem';
 import { Filter } from '../../components/Filter';
 import { SearchBar } from '../../components/SearchBar';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 const frameworks = require('../../config/frameworks.json');
 const tool = require('../../config/tools.json');
 
+
+  
 /**
  *
  *
@@ -133,7 +136,8 @@ export function Panels (props: any) {
         
 
         setFilteredData(data);
-  	};
+      };
+      
 
     return(
         
@@ -150,13 +154,16 @@ export function Panels (props: any) {
                     </div>
                 </div>
             </div>
-            {
-                [...filteredData.entries()] ? 
-                    [...filteredData.entries()].map((item: any) => 
-                        <ErrorBoundary key={item[0]} data={item[1]}>
-                            <Panel description={item[0]} data={item[1]} /> 
-                        </ErrorBoundary>
-                    )
+            {   
+            // console.log([...filteredData.entries()][0][1])
+                [...filteredData.entries()] 
+                    ?   [...filteredData.entries()].map((item: any) => 
+                            <Pagination data={item[1]} pageSize={10} key={item[0]}>
+                                <ErrorBoundary key={item[0]} data={item[1]}>
+                                    <Panel description={item[0]} data={item[1]} key={item[0]} /> 
+                                </ErrorBoundary>
+                            </Pagination>
+                        )
                     : 'Oops there was an error bringing back the panels. Check in later.'
             }
         </>
