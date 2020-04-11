@@ -103,7 +103,6 @@ export function PanelItem(props: IProps) {
         return Moment(date).isAfter(Moment(tenDaysAgo));
     } 
 
-
     const item = latest[props.devtool];
 
     return (

@@ -32,6 +32,8 @@ export function Panels (props: any) {
     
     const [filteredData, setFilteredData] = useState<any>(groupedData);
     const searchBarRef = useRef<any>();
+    
+ 
 
     /**
      *
@@ -81,6 +83,7 @@ export function Panels (props: any) {
             (entryMap: any, e: any) => entryMap.set(e.tag, [...entryMap.get(e.tag)||[], e]),
             new Map()
         );
+    
 
     /**
      *

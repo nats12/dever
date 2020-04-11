@@ -10,7 +10,7 @@ import { PanelItem } from './PanelItem';
  * @returns
  */
 export function Panel (props: any) {
-
+    console.log(props);
     return(
         <div className={props.description}>
             {

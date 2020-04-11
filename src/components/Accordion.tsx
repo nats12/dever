@@ -27,6 +27,10 @@ const Card = styled.div`
 
     .item-data {
         color: ${theme.black};
+
+        .item-name {
+            text-transform: capitalize;
+        }
     }
 
     button {
@@ -91,8 +95,8 @@ export function Accordion(props: any) {
                         <button onClick={() => setAccordionCaret(!accordionCaret)} className="btn" type="button" data-toggle="collapse" data-target={`#collapse${props.devtool.name}`} aria-expanded="true" aria-controls={`collapse${props.devtool.name}`}>
                         <div className="item-data">
                             <h5>
-                                <div>
-                                    {props.devtool.name} - NEW <span className={props.devtool.semVerDefinition}>{props.devtool.semVerDefinition}</span> {props.devtool.version}
+                                <div className="item">
+                                    <span className="item-name">{props.devtool.name}</span> - NEW <span className={props.devtool.semVerDefinition}>{props.devtool.semVerDefinition}</span> {props.devtool.version}
                                 </div>
                                 <div>
                                     {

@@ -1,8 +1,4 @@
-import React, { useRef, useEffect, useState, cloneElement } from 'react';
-import styled from "styled-components"
-import theme from '../../theme/theme'
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-
+import React, { useEffect, useState, cloneElement } from 'react';
 
 
 export function Pagination(props: any, context: any) {
