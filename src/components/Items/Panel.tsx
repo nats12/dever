@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { PanelItem } from './PanelItem';
+import { Spinner } from '../Spinner';
 
 /**
  *
@@ -18,7 +19,7 @@ export function Panel (props: any) {
                     props.data.map((item: any) => 
                         <PanelItem key={`${props.devtool}-${item.name}`} devtool={item.name} /> 
                     )
-                : `Oops there was an error bringing back info on ${props.description}. Check in later.`
+                : <Spinner />
 
             }
         </div>

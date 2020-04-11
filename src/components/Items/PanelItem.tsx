@@ -6,10 +6,13 @@ import { GetLatestRelease } from '../../Services/GitHubServices/GitHubService';
 import { Accordion } from '../Accordion';
 import { isMajorMinorPatch } from '../../Services/VersionComparisons';
 
+import { Spinner } from '../Spinner';
+
 interface IProps {
     devtool: string
     data?: {}
 }
+
 
 /**
  *
@@ -111,7 +114,8 @@ export function PanelItem(props: IProps) {
                 item 
                 ? (isWithinTenDays(item.updated_at)) 
                         ?  <Accordion devtool={item} prev={latest.prevState} /> : ''
-                : 'Preparing data for you..'
+                : 
+                <Spinner />
             }   
         </div>
     )
