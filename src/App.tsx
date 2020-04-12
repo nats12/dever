@@ -7,15 +7,7 @@ import { Header } from './components/Header';
 import { Panels } from './components/Items/Panels';
 
 const Main = styled.div`
-  .FilterSearch {
-    display: flex;
-    margin-bottom: 100px;
-  }
-
-  .Tag {
-    font-size: 30px;
-    align-self: center;
-  }
+  
 `;
 
 const PanelsTitle = styled.h1`

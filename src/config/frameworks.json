@@ -1,7 +1,7 @@
 {   
     "data": [
-        {"name": "react", "tag": "frameworks"},
-        {"name": "laravel", "tag": "frameworks"},
-        {"name": "vue", "tag": "frameworks"}
+        {"name": "react", "displayName": "React", "tag": "frameworks"},
+        {"name": "laravel", "displayName": "Laravel", "tag": "frameworks"},
+        {"name": "vue", "displayName": "Vue", "tag": "frameworks"}
     ]
 }

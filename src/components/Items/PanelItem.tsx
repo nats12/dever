@@ -29,6 +29,7 @@ export function PanelItem(props: IProps) {
     type ILatestRelease = {
         updated_at: Date,
         name: string,
+        displayName: string,
         version: string,
         semVerDefinition: string,
         versionDefinition: string
@@ -61,7 +62,7 @@ export function PanelItem(props: IProps) {
      *
      */
     useEffect(() => {
-        
+
         // Now fetch all releases from Github.
         GetLatestRelease(props.devtoolname).then((response: any) => {
             
@@ -70,6 +71,7 @@ export function PanelItem(props: IProps) {
                 ...response.data,
                 'updated_at': new Date(),
                 'name': props.devtoolname,
+                'displayName': latest[props.devtoolname].displayName,
                 'version': response.data.tag_name,
                 'versionDescription': response.data.body
             }

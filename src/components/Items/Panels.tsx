@@ -8,6 +8,7 @@ import { Pagination } from '../../components/Pagination/Pagination';
 
 const frameworks = require('../../config/frameworks.json');
 const tool = require('../../config/tools.json');
+const languages = require('../../config/languages.json');
 
 
   
@@ -19,7 +20,7 @@ const tool = require('../../config/tools.json');
  */
 export function Panels (props: any) {
     
-    const [allDataState] = useState<any>([...frameworks.data, ...tool.data]);
+    const [allDataState] = useState<any>([...frameworks.data, ...tool.data, ...languages.data]);
     const [filterTags, setFilterTags] = useState<any>(["tools"]);
 
     const checkFilter = allDataState.filter((d: any) => filterTags.indexOf(d.tag) !== -1);
