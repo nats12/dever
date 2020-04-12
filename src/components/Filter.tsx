@@ -1,5 +1,5 @@
 import React from 'react';
-import { IoIosPricetag } from "react-icons/io";
+import { FaTags } from "react-icons/fa";
 
 import styled from "styled-components"
 import theme from '../theme/theme'
@@ -61,7 +61,7 @@ export const Filter = (props: any) => {
     return (
         <FilterSearch className="FilterSearch">
             <TagIcon>
-                <IoIosPricetag/>
+                <FaTags />
             </TagIcon>
             
             <FilterContainer>
