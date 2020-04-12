@@ -4,7 +4,7 @@ import theme from './theme/theme'
 import './App.scss';
 
 import { Header } from './components/Header';
-import { Panels } from './components/Items/Panels';
+import { Panels } from './components/Panels/Panels';
 
 const Main = styled.div`
   

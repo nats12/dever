@@ -7,6 +7,20 @@ const SearchContainer = styled.div`
 
     input {
         height: 31px !important;
+
+        ::placeholder {
+            font-style: italic;
+            font-weight: lighter;
+            font-size: 13px;
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    span {
+        color: ${theme.midGrey}
     }
     
 `

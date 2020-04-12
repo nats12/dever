@@ -41,7 +41,7 @@ export function Pagination(props: any, context: any) {
         const controls = [];
         // const pageCount = this.state.pageCount;
         for (let i = 1; i <= pageCount; i++) {
-          const baseClassName = 'pagination-controls__button btn-light';
+          const baseClassName = 'pagination-controls__button';
           const activeClassName = i === currentPage ? `${baseClassName}--active` : '';
           controls.push(
             <div
