@@ -16,13 +16,14 @@ interface IData {
  * @param {string} framework
  * @returns
  */
-export const Get = (framework: string) => {
+export const Get = (tag: string) => {
 
-    return axios.get(urls.data.ApiUrls.frameworks)
+    return axios.get(urls.data.ApiUrls[tag])
         .then((response) => {
-   
+            
+        return response.data;
           // Fetch currently saved version from DB
-        return response.data.filter((f: any) => f.name === framework);
+        // return response.data.filter((f: any) => f.name === framework);
     
       }).catch((error) => { console.log(error); });
 
@@ -33,13 +34,13 @@ export const Get = (framework: string) => {
 /**
  *
  *
- * @param {string} framework
+ * @param {string} devtool
  * @param {string} version
  */
-export const Update = (framework: string, release: any) => {
+export const Update = (devtool: string, release: any, devtooltag: string) => {
     
     const data: IData = {
-        name: framework,
+        name: devtool,
         version: release.version,
         semVerDefinition: release.semVerDefinition,
         versionDescription: release.versionDescription
@@ -53,8 +54,8 @@ export const Update = (framework: string, release: any) => {
         }
     }
     
-    
-    axios.put(`${urls.data.ApiUrls.frameworks}${framework}`, data, axiosConfig)
+
+    axios.put(`${urls.data.ApiUrls[devtooltag]}${devtool}`, data, axiosConfig)
         .then((response: any) => {
             console.log(response)
         })

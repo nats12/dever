@@ -1,7 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 import { IoIosSearch } from "react-icons/io";
-import styled from "styled-components"
-import theme from '../theme/theme'
 
 
 export const SearchBar = React.forwardRef((props: any, ref: any) => {  

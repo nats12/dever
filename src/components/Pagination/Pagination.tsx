@@ -31,7 +31,7 @@ export function Pagination(props: any, context: any) {
         setPageCount(pageCount2);
         
     },
-        []
+        [props]
     )
 
     

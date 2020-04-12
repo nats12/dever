@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Moment from 'moment';
 
-import { Update, Get } from '../../Services/DatabaseServices/FrameworksService';
+import { Update } from '../../Services/DatabaseServices/FrameworksService';
 import { GetLatestRelease } from '../../Services/GitHubServices/GitHubService';
 import { Accordion } from '../Accordion';
 import { isMajorMinorPatch } from '../../Services/VersionComparisons';
@@ -9,8 +9,9 @@ import { isMajorMinorPatch } from '../../Services/VersionComparisons';
 import { Spinner } from '../Spinner';
 
 interface IProps {
-    devtool: string
-    data?: {}
+    devtoolname: string,
+    devtooltag: string,
+    databasedevtool: [{}]
 }
 
 
@@ -22,6 +23,8 @@ interface IProps {
  * @returns
  */
 export function PanelItem(props: IProps) {
+
+
 
     type ILatestRelease = {
         updated_at: Date,
@@ -39,16 +42,17 @@ export function PanelItem(props: IProps) {
      *
      */
     useEffect(() => {
-        
-        Get(props.devtool).then(data => {
+    
+        try {
             setLatest((prevState: any) => ({
-                prevState: data[0],
-                [props.devtool]: data[0]
+                prevState: props.databasedevtool[0],
+                [props.devtoolname]: props.databasedevtool[0]
             }));
-        })
-        .catch((error: Error) => { console.log(error); });
+        } catch(error) {
+            console.log(error);
+        }
     },
-        []
+        [props]
     )
 
 
@@ -59,36 +63,36 @@ export function PanelItem(props: IProps) {
     useEffect(() => {
         
         // Now fetch all releases from Github.
-        GetLatestRelease(props.devtool).then((response: any) => {
+        GetLatestRelease(props.devtoolname).then((response: any) => {
             
             // Find the latest version out of all releases
             const latestRelease: ILatestRelease = {
                 ...response.data,
                 'updated_at': new Date(),
-                'name': props.devtool,
+                'name': props.devtoolname,
                 'version': response.data.tag_name,
                 'versionDescription': response.data.body
             }
             
 
             // Update only if the new release version is greater than the current one i.e. DB.  
-            if(latest[props.devtool] && latestRelease.version > latest[props.devtool].version) {
+            if(latest[props.devtoolname] && latestRelease.version > latest[props.devtoolname].version) {
 
                 latestRelease.semVerDefinition = isMajorMinorPatch(latest.prevState.version, latestRelease.version);
 
                 setLatest((prevState: any) => ({
                     prevState, 
-                    [props.devtool]: latestRelease 
+                    [props.devtoolname]: latestRelease 
                 }));
             } 
- 
+
             if(latest.prevState.version < latestRelease.version) {
-                Update(props.devtool, latestRelease);
+                Update(props.devtoolname, latestRelease, props.devtooltag);
             }
             
         }).catch((error: any) => { console.log(error); });   
     },
-        [latest[props.devtool]],
+        [latest, props],
     );
     
     
@@ -106,7 +110,7 @@ export function PanelItem(props: IProps) {
         return Moment(date).isAfter(Moment(tenDaysAgo));
     } 
 
-    const item = latest[props.devtool];
+    const item = latest[props.devtoolname];
 
     return (
         <div> 

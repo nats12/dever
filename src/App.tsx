@@ -1,14 +1,10 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React from 'react';
 import styled from "styled-components"
 import theme from './theme/theme'
 import './App.scss';
 
 import { Header } from './components/Header';
 import { Panels } from './components/Items/Panels';
-import { Pagination } from './components/Pagination/Pagination';
-import { randomBytes } from 'crypto';
-
-
 
 const Main = styled.div`
   .FilterSearch {

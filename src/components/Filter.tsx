@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 import { IoIosPricetag } from "react-icons/io";
 
 import styled from "styled-components"

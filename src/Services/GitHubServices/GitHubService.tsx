@@ -6,14 +6,15 @@ const authorisation = require('../../config/authorization.json');
 /**
  *
  *
- * @param {string} framework
+ * @param {string} devtool
  * @returns
  */
-export const GetLatestRelease = (framework: string) => {
-
-    return axios.get(urls.data.GitHubUrls[framework], { headers: { "Authorization": "token " + authorisation.data.GitHubAppToken }})
+export const GetLatestRelease = (devtool: string) => {
+    // const capitalized = devtool.charAt(0).toUpperCase() + devtool.slice(1);
+    // console.log(capitalized);
+    return axios.get(urls.data.GitHubUrls[devtool], { headers: { "Authorization": "token " + authorisation.data.GitHubAppToken }})
         .then((response) => {
-
+        
             return response; 
 
         }).catch((error: any) => { console.log(error); });   

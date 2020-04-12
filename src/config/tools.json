@@ -1,9 +1,9 @@
 {   
     "data": [
-        {"name": "docker compose", "tag": "tools"},
-        {"name": "docker community edition", "tag": "tools"},
-        {"name": "asp .net core", "tag": "tools"},
-        {"name": ".net core sdk", "tag": "tools"},
+        {"name": "compose", "tag": "tools"},
+        {"name": "docker-ce", "tag": "tools"},
+        {"name": "aspnetcore", "tag": "tools"},
+        {"name": "sdk", "tag": "tools"},
         {"name": "typescript", "tag": "tools"}
     ]
 }
