@@ -43,7 +43,7 @@ export function PanelItem(props: IProps) {
      *
      */
     useEffect(() => {
-    
+        
         try {
             setLatest((prevState: any) => ({
                 prevState: props.databasedevtool[0],
@@ -65,33 +65,33 @@ export function PanelItem(props: IProps) {
 
         // Now fetch all releases from Github.
         GetLatestRelease(props.devtoolname).then((response: any) => {
-            
-            // Find the latest version out of all releases
-            const latestRelease: ILatestRelease = {
-                ...response.data,
-                'updated_at': new Date(),
-                'name': props.devtoolname,
-                'displayName': latest[props.devtoolname].displayName,
-                'version': response.data.tag_name,
-                'versionDescription': response.data.body
-            }
-            
 
-            // Update only if the new release version is greater than the current one i.e. DB.  
-            if(latest[props.devtoolname] && latestRelease.version > latest[props.devtoolname].version) {
+            if(!response.data.tag_name.includes("-")) {
+                // Find the latest version out of all releases
+                const latestRelease: ILatestRelease = {
+                    ...response.data,
+                    'updated_at': new Date(),
+                    'name': props.devtoolname,
+                    'displayName': latest[props.devtoolname].displayName,
+                    'version': response.data.tag_name,
+                    'versionDescription': response.data.body
+                }
+                
+                // Update only if the new release version is greater than the current one i.e. DB.  
+                if(latest[props.devtoolname] && latestRelease.version !== latest[props.devtoolname].version) {
 
-                latestRelease.semVerDefinition = isMajorMinorPatch(latest.prevState.version, latestRelease.version);
+                    latestRelease.semVerDefinition = isMajorMinorPatch(latest.prevState.version, latestRelease.version);
 
-                setLatest((prevState: any) => ({
-                    prevState, 
-                    [props.devtoolname]: latestRelease 
-                }));
-            } 
+                    setLatest((prevState: any) => ({
+                        prevState, 
+                        [props.devtoolname]: latestRelease 
+                    }));
+                } 
 
-            if(latest.prevState.version < latestRelease.version) {
-                Update(props.devtoolname, latestRelease, props.devtooltag);
-            }
-            
+                if(latest.prevState.version !== latestRelease.version) {
+                    Update(props.devtoolname, latestRelease, props.devtooltag);
+                }
+            }   
         }).catch((error: any) => { console.log(error); });   
     },
         [latest, props],
