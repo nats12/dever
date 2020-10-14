@@ -14,11 +14,20 @@ const MenuItem = styled.li`
     margin-top: 20px;
     transition: color 0.5s ease;
 
+    a {
+        color: ${theme.lightGrey};
+    }
+
+    &:visited {
+        color: ${theme.lightGrey};
+    }
+
     &:hover {
         color: ${theme.red};
         cursor: pointer;
         transition: color 0.5s ease;
     }
+
 `;
 
 
@@ -27,8 +36,7 @@ export const Navigation = () => (
         
         <>
             <Menu>
-                <MenuItem>About</MenuItem>
-                <MenuItem>Donate</MenuItem>
+                <MenuItem><a href="#About">About</a></MenuItem>
             </Menu>
         </>
 )

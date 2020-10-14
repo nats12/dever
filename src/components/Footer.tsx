@@ -26,7 +26,8 @@ export const Footer: React.FC = () => {
     return (
         <FooterBlock>
             <FooterContent>
-                <small>&copy; Natalie Mclaren 2020</small>
+                <small>&copy; <strong>Natalie Mclaren 2020</strong></small>
+                <small>Want to chat? Feel free to drop me an <a href="mailto:natalielmclaren@hotmail.com" target="_blank">email</a>!</small>
                 <small>Made with &hearts; by <a href="https://github.com/nats12" target="_blank">nats12</a></small>
             </FooterContent>
         </FooterBlock>
