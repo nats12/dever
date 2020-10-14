@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components"
 import theme from './theme/theme'
 import './App.scss';
-
+import { useAuth0 } from "./Auth/react-auth0-spa";
 import { Header } from './components/Header';
 import { Panels } from './components/Panels/Panels';
 import { About } from './components/Sections/About';
@@ -24,7 +24,8 @@ const PanelsTitle = styled.h1`
  * @returns
  */
 function App() {
-	
+
+
   return (
     <div className="App">
       <Header />

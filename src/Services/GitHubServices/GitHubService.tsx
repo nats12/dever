@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const urls = require('../../config/urls.json');
-const authorisation = require('../../config/authorization.json');
 
 /**
  *
@@ -10,9 +9,10 @@ const authorisation = require('../../config/authorization.json');
  * @returns
  */
 export const GetLatestRelease = (devtool: string) => {
-    // const capitalized = devtool.charAt(0).toUpperCase() + devtool.slice(1);
-    // console.log(capitalized);
-    return axios.get(urls.data.GitHubUrls[devtool], { headers: { "Authorization": "token " + authorisation.data.GitHubAppToken }})
+
+    const gitHubToken = process.env.REACT_APP_GITHUB_TOKEN;
+
+    return axios.get(urls.data.GitHubUrls[devtool], { headers: { "Authorization": "token " + gitHubToken }})
         .then((response) => {
         
             return response; 

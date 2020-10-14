@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-const authorisation = require('../../config/authorization.json');
 const urls = require('../../config/urls.json');
 
 interface IData {
@@ -22,8 +21,7 @@ export const Get = (tag: string) => {
     const axiosConfig = {
         headers:{
             'Content-Type': 'application/json;charset=UTF-8',
-            "Access-Control-Allow-Origin": "*",
-            "Authorization" : `Bearer ${authorisation.data.Auth0Token}`
+            "Access-Control-Allow-Origin": "*"
         }
     }
 
@@ -56,8 +54,7 @@ export const Update = (devtool: string, release: any, devtooltag: string) => {
     const axiosConfig = {
         headers:{
             'Content-Type': 'application/json;charset=UTF-8',
-            "Access-Control-Allow-Origin": "*",
-            "Authorization" : `Bearer ${authorisation.data.Auth0Token}`
+            "Access-Control-Allow-Origin": "*"
         }
     }
 
