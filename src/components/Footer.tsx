@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../theme/theme';
+import devices from '../theme/devices';
 
 const FooterBlock = styled.div`
     background-color: ${theme.black};
@@ -12,12 +13,23 @@ const FooterBlock = styled.div`
 `;
 
 const FooterContent = styled.div`
+
     display: flex;
-    width: 100%;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    width: 100%;
     height: 100%;
-    padding: 0 30px;
+    justify-content: space-evenly;
+
+    @media ${devices.laptop} {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between !important;
+        height: 100%;
+        padding: 0 30px;
+    }
 }
 `;
 

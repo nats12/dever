@@ -3,6 +3,7 @@ import { FaTags } from "react-icons/fa";
 
 import styled from "styled-components"
 import theme from '../theme/theme'
+import devices from '../theme/devices';
 
 const tags = require('../config/tags.json');
 
@@ -54,6 +55,11 @@ export const Filter = (props: any) => {
 
     const TagIcon = styled.div`
         
+        display: none;
+
+        @media ${devices.laptop} {
+            display: block;
+        }
         
     `
 
