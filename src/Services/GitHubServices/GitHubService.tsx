@@ -1,19 +1,20 @@
 import axios from 'axios';
 
 const urls = require('../../config/urls.json');
-const authorisation = require('../../config/authorization.json');
 
 /**
  *
  *
- * @param {string} framework
+ * @param {string} devtool
  * @returns
  */
-export const GetLatestRelease = (framework: string) => {
+export const GetLatestRelease = (devtool: string) => {
 
-    return axios.get(urls.data.GitHubUrls[framework], { headers: { "Authorization": "token " + authorisation.data.GitHubAppToken }})
+    const gitHubToken = process.env.REACT_APP_GITHUB_TOKEN;
+
+    return axios.get(urls.data.GitHubUrls[devtool], { headers: { "Authorization": "token " + gitHubToken }})
         .then((response) => {
-
+        
             return response; 
 
         }).catch((error: any) => { console.log(error); });   

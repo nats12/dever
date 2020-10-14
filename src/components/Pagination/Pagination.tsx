@@ -24,14 +24,14 @@ export function Pagination(props: any, context: any) {
         const pageSize = props.pageSize;
         let pageCount2 = props.data.length / pageSize;
         if (props.data.length % pageSize > 0) {
-        pageCount2++;
+            pageCount2++;
         }
-        console.log(pageCount2);
+       
         setCurrentPage(startingPage);
         setPageCount(pageCount2);
         
     },
-        []
+        [props]
     )
 
     
@@ -41,7 +41,7 @@ export function Pagination(props: any, context: any) {
         const controls = [];
         // const pageCount = this.state.pageCount;
         for (let i = 1; i <= pageCount; i++) {
-          const baseClassName = 'pagination-controls__button btn-light';
+          const baseClassName = 'pagination-controls__button';
           const activeClassName = i === currentPage ? `${baseClassName}--active` : '';
           controls.push(
             <div
@@ -70,7 +70,7 @@ export function Pagination(props: any, context: any) {
     return (
         <div className='pagination-panel'>
             <div className='pagination-controls'>
-            {createControls()}
+            { createControls() }
             </div>
             <div className='pagination-results'>
    

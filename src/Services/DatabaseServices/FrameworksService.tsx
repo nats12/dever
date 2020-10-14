@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const authorisation = require('../../config/authorization.json');
 const urls = require('../../config/urls.json');
 
 interface IData {
     name: string,
     version: string,
     semVerDefinition: string,
-    versionDescription: string
+    versionDescription: string,
+    displayName: string
 }
 
 /**
@@ -16,14 +16,19 @@ interface IData {
  * @param {string} framework
  * @returns
  */
-export const Get = (framework: string) => {
+export const Get = (tag: string) => {
 
-    return axios.get(urls.data.ApiUrls.frameworks)
+    const axiosConfig = {
+        headers:{
+            'Content-Type': 'application/json;charset=UTF-8',
+            "Access-Control-Allow-Origin": "*"
+        }
+    }
+
+    return axios.get(urls.data.ApiUrls[tag], axiosConfig)
         .then((response) => {
-   
-          // Fetch currently saved version from DB
-        return response.data.filter((f: any) => f.name === framework);
-    
+            
+        return response.data;
       }).catch((error) => { console.log(error); });
 
 }
@@ -33,30 +38,31 @@ export const Get = (framework: string) => {
 /**
  *
  *
- * @param {string} framework
+ * @param {string} devtool
  * @param {string} version
  */
-export const Update = (framework: string, release: any) => {
+export const Update = (devtool: string, release: any, devtooltag: string) => {
     
     const data: IData = {
-        name: framework,
+        name: devtool,
         version: release.version,
         semVerDefinition: release.semVerDefinition,
-        versionDescription: release.versionDescription
+        versionDescription: release.versionDescription,
+        displayName: release.displayName
     }
 
     const axiosConfig = {
         headers:{
             'Content-Type': 'application/json;charset=UTF-8',
-            "Access-Control-Allow-Origin": "*",
-            "Authorization" : `Bearer ${authorisation.data.Auth0Token}`
+            "Access-Control-Allow-Origin": "*"
         }
     }
-    
-    
-    axios.put(`${urls.data.ApiUrls.frameworks}${framework}`, data, axiosConfig)
+
+
+    axios.put(`${urls.data.ApiUrls[devtooltag]}${devtool}`, data, axiosConfig)
         .then((response: any) => {
-            console.log(response)
+            
+            return response;
         })
         .catch((error: any) => console.log(error));
 }

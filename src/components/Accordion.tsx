@@ -96,7 +96,7 @@ export function Accordion(props: any) {
                         <div className="item-data">
                             <h5>
                                 <div className="item">
-                                    <span className="item-name">{props.devtool.name}</span> - NEW <span className={props.devtool.semVerDefinition}>{props.devtool.semVerDefinition}</span> {props.devtool.version}
+                                    <span className="item-name">{props.devtool.displayName}</span> - NEW <span className={props.devtool.semVerDefinition}>{props.devtool.semVerDefinition}</span> {props.devtool.version}
                                 </div>
                                 <div>
                                     {

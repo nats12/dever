@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { Panel } from '../../components/Items/Panel';
-import { ErrorBoundary } from '../../components/ErrorHandling/ErrorBoundary';
-import { PanelItem } from './PanelItem';
-import { Filter } from '../../components/Filter';
-import { SearchBar } from '../../components/SearchBar';
-import { Pagination } from '../../components/Pagination/Pagination';
+import { Panel } from './Panel';
+import { ErrorBoundary } from '../ErrorHandling/ErrorBoundary';
+import { Filter } from '../Filter';
+import { SearchBar } from '../SearchBar';
+import { Pagination } from '../Pagination/Pagination';
 
 const frameworks = require('../../config/frameworks.json');
 const tool = require('../../config/tools.json');
+const languages = require('../../config/languages.json');
 
 
   
@@ -20,8 +20,8 @@ const tool = require('../../config/tools.json');
  */
 export function Panels (props: any) {
     
-    const [allDataState, setAllData] = useState<any>([...frameworks.data, ...tool.data]);
-    const [filterTags, setFilterTags] = useState<any>(["frameworks"]);
+    const [allDataState] = useState<any>([...frameworks.data, ...tool.data, ...languages.data]);
+    const [filterTags, setFilterTags] = useState<any>(["tools"]);
 
     const checkFilter = allDataState.filter((d: any) => filterTags.indexOf(d.tag) !== -1);
 
@@ -158,10 +158,9 @@ export function Panels (props: any) {
                 </div>
             </div>
             {   
-            // console.log([...filteredData.entries()][0][1])
                 [...filteredData.entries()] 
                     ?   [...filteredData.entries()].map((item: any) => 
-                            <Pagination data={item[1]} pageSize={10} key={item[0]}>
+                            <Pagination data={item[1]} pageSize={3} key={item[0]}>
                                 <ErrorBoundary key={item[0]} data={item[1]}>
                                     <Panel description={item[0]} data={item[1]} key={item[0]} /> 
                                 </ErrorBoundary>

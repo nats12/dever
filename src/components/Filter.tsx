@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { IoIosPricetag } from "react-icons/io";
+import React from 'react';
+import { FaTags } from "react-icons/fa";
 
 import styled from "styled-components"
 import theme from '../theme/theme'
@@ -13,7 +13,7 @@ const Tag = (props: any) => {
             onClick={props.handleClick} 
             id={props.name} 
             type="button" 
-            className={`btn ${props.filterTags.indexOf(props.name) !== -1 ? "btn-light" : "btn-primary"}`}>
+            className={`btn btn-sm ${props.filterTags.indexOf(props.name) !== -1 ? "btn-light" : "btn-primary"}`}>
                 {props.name}
         </button>
   
@@ -26,25 +26,43 @@ export const Filter = (props: any) => {
     const FilterContainer = styled.div`
         width: 100%;
         display: flex;
-        justify-content: space-between;
-
-        button {
-            min-width: 120px;
-
-        }
+        justify-content: space-evenly;
 
         .btn-light {
             color: ${theme.lightestGrey} !important;
             border: 1px solid ${theme.lightGrey} !important;
         }
+
+        .btn {
+            min-width: 100px;
+        }
+    `
+
+    const FilterSearch = styled.div`
+        display: flex;
+        margin-bottom: 100px;
+
+        svg {
+            font-size: 30px;
+            margin-right: 10px;
+            align-self: center;
+        }
+    `   
+    
+      
+
+
+    const TagIcon = styled.div`
+        
+        
     `
 
 
     return (
-        <div className="FilterSearch">
-            <div className="Tag">
-                <IoIosPricetag/>
-            </div>
+        <FilterSearch className="FilterSearch">
+            <TagIcon>
+                <FaTags />
+            </TagIcon>
             
             <FilterContainer>
                 {
@@ -57,6 +75,6 @@ export const Filter = (props: any) => {
                             key={tag} />)
                 }
             </FilterContainer>
-       </div>
+       </FilterSearch>
     )
 }
