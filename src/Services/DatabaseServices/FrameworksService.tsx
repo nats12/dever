@@ -21,9 +21,10 @@ export const Get = (tag: string) => {
     const axiosConfig = {
         headers:{
             'Content-Type': 'application/json;charset=UTF-8',
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "https://dever-web-app.herokuapp.com/"
         }
     }
+
 
     return axios.get(urls.data.ApiUrls[tag], axiosConfig)
         .then((response) => {
@@ -54,7 +55,7 @@ export const Update = (devtool: string, release: any, devtooltag: string) => {
     const axiosConfig = {
         headers:{
             'Content-Type': 'application/json;charset=UTF-8',
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "https://dever-web-app.herokuapp.com/"
         }
     }
 
