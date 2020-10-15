@@ -12,9 +12,9 @@
             "typescript": "https://api.github.com/repos/microsoft/TypeScript/releases/latest"
         },
         "ApiUrls": {
-            "frameworks": "https://dever-api.herokuapp.com/api/frameworks/",
-            "tools": "https://dever-api.herokuapp.com/api/tools/",
-            "languages": "https://dever-api.herokuapp.com/api/languages/"
+            "frameworks": "https://dever-api.herokuapp.com/api/frameworks",
+            "tools": "https://dever-api.herokuapp.com/api/tools",
+            "languages": "https://dever-api.herokuapp.com/api/languages"
         }
     }  
 }

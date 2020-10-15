@@ -21,7 +21,7 @@ export const Get = (tag: string) => {
     const axiosConfig = {
         headers:{
             'Content-Type': 'application/json;charset=UTF-8',
-            "Access-Control-Allow-Origin": "*"
+            // "Access-Control-Allow-Origin": "*"
         }
     }
 
@@ -55,7 +55,7 @@ export const Update = (devtool: string, release: any, devtooltag: string) => {
     const axiosConfig = {
         headers:{
             'Content-Type': 'application/json;charset=UTF-8',
-            "Access-Control-Allow-Origin": "*"
+            // "Access-Control-Allow-Origin": "*"
         }
     }
 
