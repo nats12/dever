@@ -7,6 +7,7 @@ import { Header } from './components/Header';
 import { Panels } from './components/Panels/Panels';
 import { About } from './components/Sections/About';
 import { Footer } from './components/Footer';
+import { Subscribe } from './components/Sections/Subscribe';
 
 const Main = styled.div`
   
@@ -40,6 +41,7 @@ function App() {
         <Panels />
         <About />
 		  </Main>
+      <Subscribe />
       <Footer />
     </div>
   );
