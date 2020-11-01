@@ -43,7 +43,7 @@ export const Get = (tag: string) => {
  * @param {string} version
  */
 export const Update = (devtool: string, release: any, devtooltag: string) => {
-    
+
     const data: IData = {
         name: devtool,
         version: release.version,
@@ -60,7 +60,7 @@ export const Update = (devtool: string, release: any, devtooltag: string) => {
     }
 
 
-    axios.put(`${urls.data.ApiUrls[devtooltag]}${devtool}`, data, axiosConfig)
+    axios.put(`${urls.data.ApiUrls[devtooltag]}/${devtool}`, data, axiosConfig)
         .then((response: any) => {
             
             return response;

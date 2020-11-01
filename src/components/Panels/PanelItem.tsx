@@ -35,21 +35,34 @@ export function PanelItem(props: IProps) {
         versionDefinition: string
     }
 
+    interface IDevTool {
+        devtoolname: any,
+        devtooltag: any
+    }
 
     const [latest, setLatest] = useState<any>({});
-    
+    const [devTool, setDevTool] = useState<IDevTool>({ devtoolname: '', devtooltag: '' });
+
     /**
      *
      *
      */
     useEffect(() => {
-        
+
         try {
-            setLatest((prevState: any) => ({
+            setLatest({
                 prevState: props.databasedevtool[0],
                 [props.devtoolname]: props.databasedevtool[0]
-            }));
-        } catch(error) {
+            });
+
+            const devToolState: IDevTool = {
+                'devtoolname': [props.devtoolname],
+                'devtooltag': [props.devtooltag]
+            }
+
+            setDevTool(devToolState);
+
+        } catch (error) {
             console.log(error);
         }
     },
@@ -64,40 +77,43 @@ export function PanelItem(props: IProps) {
     useEffect(() => {
 
         // Now fetch all releases from Github.
-        GetLatestRelease(props.devtoolname).then((response: any) => {
+        GetLatestRelease(devTool.devtoolname).then((response: any) => {
 
-            if(!response.data.tag_name.includes("-")) {
-                // Find the latest version out of all releases
-                const latestRelease: ILatestRelease = {
-                    ...response.data,
-                    'updated_at': new Date(),
-                    'name': props.devtoolname,
-                    'displayName': latest[props.devtoolname].displayName,
-                    'version': response.data.tag_name,
-                    'versionDescription': response.data.body
-                }
-                
-                // Update only if the new release version is greater than the current one i.e. DB.  
-                if(latest[props.devtoolname] && latestRelease.version !== latest[props.devtoolname].version) {
+            // Find the latest version out of all releases
+            const latestRelease: ILatestRelease = {
+                ...response.data,
+                'updated_at': new Date(),
+                'name': devTool.devtoolname,
+                'displayName': latest[devTool.devtoolname].displayName,
+                'version': response.data.tag_name,
+                'versionDescription': response.data.body
+            }
 
-                    latestRelease.semVerDefinition = isMajorMinorPatch(latest.prevState.version, latestRelease.version);
+            if (latestRelease.version.includes("-")) {
+                latestRelease.version = latestRelease.version.split("-")[0];
+            }
+          
+            // Update only if the new release version is greater than the current one i.e. DB.  
+            if (latest[devTool.devtoolname] && latestRelease.version !== latest[devTool.devtoolname].version) {
 
-                    setLatest((prevState: any) => ({
-                        prevState, 
-                        [props.devtoolname]: latestRelease 
-                    }));
-                } 
+                latestRelease.semVerDefinition = isMajorMinorPatch(latest.prevState.version, latestRelease.version);
 
-                if(latest.prevState.version !== latestRelease.version) {
-                    Update(props.devtoolname, latestRelease, props.devtooltag);
-                }
-            }   
-        }).catch((error: any) => { console.log(error); });   
+                setLatest((prevState: any) => ({
+                    prevState,
+                    [devTool.devtoolname]: latestRelease
+                }));
+            }
+
+            if (latest.prevState.version !== latestRelease.version) {
+                Update(devTool.devtoolname, latestRelease, devTool.devtooltag);
+            }
+
+        }).catch((error: any) => { console.log(error); });
     },
-        [latest, props],
+        [devTool]
     );
-    
-    
+
+
     /**
      *
      *
@@ -105,24 +121,24 @@ export function PanelItem(props: IProps) {
      * @returns
      */
     const isWithinTenDays = (date: Date) => {
-        
+
         const tenDaysAgo = new Date();
         tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
 
         return Moment(date).isAfter(Moment(tenDaysAgo));
-    } 
+    }
 
     const item = latest[props.devtoolname];
 
     return (
-        <div> 
-            { 
-                item 
-                ? (isWithinTenDays(item.updated_at)) 
-                        ?  <Accordion devtool={item} prev={latest.prevState} /> : ''
-                : 
-                <Spinner />
-            }   
+        <div>
+            {
+                item
+                    ? (isWithinTenDays(item.updated_at))
+                        ? <Accordion devtool={item} prev={latest.prevState} /> : ''
+                    :
+                    <Spinner />
+            }
         </div>
     )
 }

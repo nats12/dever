@@ -8,6 +8,13 @@
  */
 export const isMajorMinorPatch = (oldVersion: any, newVersion: any) => {
 
+  if(oldVersion.includes("-")) {
+    oldVersion = oldVersion.split('-')[0];
+  }
+
+  if(newVersion.includes("-")) {
+    newVersion = oldVersion.split('-')[0];
+  }
 
   oldVersion = oldVersion.split('.');
   newVersion = newVersion.split('.');
